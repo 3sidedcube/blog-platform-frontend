@@ -13,6 +13,7 @@ export default function Navbar() {
         {isAuthenticated ? (
           <><button onClick={logout} className="bg-red-500 px-4 py-2 rounded">Logout</button>
           <Link href="/post/create" className="bg-blue-500 px-4 py-2 rounded">Create Post</Link>
+          <Link href="/post/myposts" className="bg-blue-500 px-4 py-2 rounded">My Posts</Link>
           </>
         ) : (
           <>

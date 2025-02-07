@@ -19,6 +19,7 @@ export default function LoginPage() {
       if (data?.login?.access_token) {
         localStorage.setItem('access_token', data.login.access_token);
         router.push('/'); 
+        router.refresh()
       } else {
         setErrorMessage("Invalid credentials. Please try again.");
       }
