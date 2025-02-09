@@ -78,8 +78,10 @@ const UPDATE_POST = gql`
 `;
 
 const ASSIGN_TAGS = gql`
-  mutation AssignTags($data: AssignTagsInput!) {
-    assignTags(data: $data)
+  mutation AssignTagToPost($request: AssignTag!) {
+    assignTagToPost(request: $request){
+      message
+    }
   }
 `;
 const SEARCH_POSTS = gql`

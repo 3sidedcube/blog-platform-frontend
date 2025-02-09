@@ -12,6 +12,9 @@ import { useState } from "react";
 import EditPostModal from "@/components/EditPostModal";
 import { useGetTagsWithPostCount } from "@/hooks/useTags";
 import Navbar from "@/components/Navbar";
+import { post } from "@/types/post";
+import AssignTagsModal from "@/components/AssignTagsModal";
+import { tag } from "@/types/tag";
 
 export default function MyPostsPage() {
   const router = useRouter();
@@ -20,7 +23,6 @@ export default function MyPostsPage() {
   const [deletePost] = useDeletePost();
   const [updatePost] = useUpdatePost();
   const [assignTags] = useAssignTags();
-
   const handleDelete = async (id: string) => {
     await deletePost({ variables: { id } });
     alert("Post deleted!");
@@ -48,6 +50,11 @@ export default function MyPostsPage() {
 
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState<any>(null);
+  const [isAssignTagsModalOpen, setAssignTagsModalOpen] = useState(false)
+  const openAssignTagsModal = (post:post)=>{
+   setSelectedPost(post)
+   setAssignTagsModalOpen(true)
+  }
   const openEditModal = (post: any) => {
     setSelectedPost(post);
     setEditModalOpen(true);
@@ -96,7 +103,7 @@ export default function MyPostsPage() {
                                           <button
                                               type="button"
                                               className="block w-full text-black bg-white text-left px-4 py-2 text-sm"
-                                              onClick={() => handleAssignTags(post.id)}
+                                              onClick={() => openAssignTagsModal(post)}
                                           >
                                               Assign Tags
                                           </button>
@@ -143,11 +150,19 @@ export default function MyPostsPage() {
 
           {/* Edit Post Modal */}
           {selectedPost && (
+            <>
+            <AssignTagsModal
+             isOpen={isAssignTagsModalOpen}
+             onClose={()=>setAssignTagsModalOpen(false)}
+             postId={selectedPost.id}
+             currentTags={selectedPost.tags.map((tag:tag)=>tag.name)}
+            />
               <EditPostModal
                   isOpen={isEditModalOpen}
                   onClose={() => setEditModalOpen(false)}
                   post={selectedPost}
                   onSave={handleUpdate} />
+                  </>
           )}
       </div></>
   );

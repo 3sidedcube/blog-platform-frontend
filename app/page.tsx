@@ -29,7 +29,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="relative bg-gray-900 text-white rounded-lg overflow-hidden shadow-xl mb-10">
         <Image
-          src="/banner.jpg" 
+          src="/blog.jpg" 
           alt="Blog Banner"
           width={1200}
           height={400}
