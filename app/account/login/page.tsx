@@ -18,8 +18,9 @@ export default function LoginPage() {
       const { data } = await login({ variables: { email, password } });
       if (data?.login?.access_token) {
         localStorage.setItem('access_token', data.login.access_token);
-        router.push('/'); 
-        router.refresh()
+        router.refresh();
+        router.push('/post/myposts'); 
+
       } else {
         setErrorMessage("Invalid credentials. Please try again.");
       }
